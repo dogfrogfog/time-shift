@@ -4,22 +4,19 @@ import { Fragment, useState, useTransition } from "react"
 
 import groupedTimezones from "../data/timezones.json"
 
-export default function Example() {
+export default function Example({ setToStorage }) {
   const [query, setQuery] = useState("")
   const [selected, setSelected] = useState("")
   const [filteredTz, setFilteredTz] = useState([])
-  const [isPending, startTransition] = useTransition()
+  const [_, startTransition] = useTransition()
 
-  const timezonesArray: any[] = groupedTimezones.timezones.reduce(
-    (acc, group) => {
-      const timezoneWithGroup = group.zones.map((v) => ({
-        ...v,
-        group: group.group
-      }))
-      return [...acc, ...timezoneWithGroup]
-    },
-    []
-  )
+  const timezonesArray = groupedTimezones.timezones.reduce((acc, group) => {
+    const timezoneWithGroup = group.zones.map((v) => ({
+      ...v,
+      group: group.group
+    }))
+    return [...acc, ...timezoneWithGroup]
+  }, [])
 
   const handleChange = (event) => {
     const search = event.target.value
@@ -38,9 +35,16 @@ export default function Example() {
     })
   }
 
+  const handleSelect = (selectedTimezone) => {
+    setToStorage(selectedTimezone)
+    setSelected(selectedTimezone)
+  }
+
+  const correctTz = query === "" ? timezonesArray : filteredTz
+
   return (
     <div className="w-full">
-      <Combobox value={selected} onChange={setSelected}>
+      <Combobox value={selected} onChange={handleSelect}>
         <div className="relative mt-1">
           <div className="relative w-full cursor-default">
             <Combobox.Input
@@ -68,22 +72,22 @@ export default function Example() {
                   Nothing found.
                 </div>
               ) : (
-                filteredTz.map((person) => (
+                correctTz.map((tz) => (
                   <Combobox.Option
-                    key={person.id}
+                    key={tz.value + tz.name + tz.group}
                     className={({ active }) =>
                       `relative cursor-default select-none py-2 pl-10 pr-4 ${
                         active ? "bg-gray-200" : ""
                       }`
                     }
-                    value={person}>
+                    value={tz.value}>
                     {({ selected }) => (
                       <>
                         <span
                           className={`block truncate ${
                             selected ? "font-medium" : "font-normal"
                           }`}>
-                          {person.name}
+                          {tz.name} - {tz.group}
                         </span>
                         {selected ? (
                           <span

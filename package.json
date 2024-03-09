@@ -48,7 +48,7 @@
       "https://*/*"
     ],
     "permissions": [
-      "tabs"
+      "storage"
     ]
   }
 }
