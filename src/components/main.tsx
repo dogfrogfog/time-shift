@@ -4,22 +4,38 @@ import ControlBar from "./ControlBar"
 import Header from "./Header"
 
 export default function Main() {
-  const [tz, setTz] = useStorage("serial-number", "")
+  const [tzStorage, setTzToStorage] = useStorage("saved-tz")
 
-  const setToStorage = async (value: string) => {
-    setTz(value)
+  const saveTz = async (value: string) => {
+    const response = await fetch(
+      `http://worldtimeapi.org/api/timezone/${value}`
+    )
 
-    const a = await fetch(`http://worldtimeapi.org/api/timezone/${value}`)
+    const data = await response.json()
+    const current = tzStorage?.selectedTz || []
 
-    setTz(JSON.stringify(await a.json()))
+    // setTzToStorage({ selectedTz: [] })
+    setTzToStorage({ selectedTz: current.concat([data]) })
   }
+
+  console.log(tzStorage)
 
   return (
     <div className="w-[600px] h-[400px] bg-gray-200">
       <Header />
-      {tz}
-      <div className="px-2 py-4">
-        <ControlBar setToStorage={setToStorage} />
+      <div className="p-2">
+        <ControlBar tzStorage={tzStorage} saveTz={saveTz} />
+        <div className="mt-8">
+          Saved timezones: {tzStorage?.selectedTz?.length || 0}
+        </div>
+        <div className="flex flex-col">
+          {tzStorage?.selectedTz?.map((tz, index) => (
+            <div key={index} className="flex justify-between">
+              <div>{tz.timezone}</div>
+              <div>{tz.datetime}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )
