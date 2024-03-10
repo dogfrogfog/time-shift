@@ -1,7 +1,7 @@
-import Main from "~components/main"
+import Main from "~components/mainLayout"
 
 function IndexPage() {
-  return <Main />
+  return null
 }
 
 export default IndexPage

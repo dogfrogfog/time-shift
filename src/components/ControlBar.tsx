@@ -9,6 +9,7 @@ import { Fragment, useState, useTransition } from "react"
 import { cn } from "~lib/utils"
 
 import groupedTimezones from "../data/timezones.json"
+import { Button } from "./Button"
 
 export default function Example({ saveTz, tzStorage }) {
   const [query, setQuery] = useState("")
@@ -16,6 +17,8 @@ export default function Example({ saveTz, tzStorage }) {
   const [filteredTz, setFilteredTz] = useState([])
   const [_, startTransition] = useTransition()
 
+  const isLimitReached = false
+  // tzStorage?.selectedTz?.length === 5
   const isCurrentValuesSavedToStorage = tzStorage?.selectedTz
     ?.map((tz) => tz.timezone)
     .includes(selected)
@@ -45,8 +48,11 @@ export default function Example({ saveTz, tzStorage }) {
     })
   }
 
+  const isSaveOperationDisabled =
+    isCurrentValuesSavedToStorage || isLimitReached || !selected
+
   const handleSaveTz = () => {
-    if (!isCurrentValuesSavedToStorage) {
+    if (!isSaveOperationDisabled) {
       saveTz(selected)
     }
   }
@@ -56,7 +62,7 @@ export default function Example({ saveTz, tzStorage }) {
   return (
     <div className="w-full">
       <Combobox value={selected} onChange={setSelected}>
-        <div className="relative mt-1">
+        <div className="relative mt-2">
           <div className="relative w-full cursor-default">
             <Combobox.Input
               placeholder="Search by city or timezone name..."
@@ -114,20 +120,17 @@ export default function Example({ saveTz, tzStorage }) {
           </Transition>
         </div>
       </Combobox>
-      <button
-        disabled={isCurrentValuesSavedToStorage}
-        aria-disabled={isCurrentValuesSavedToStorage}
-        onClick={handleSaveTz}
-        className={cn(
-          "text-left mt-2 py-1 px-3 rounded-md bg-white w-full text-xs focus:outline active:shadow-md outline-yellow-300 outline-2 leading-3",
-          {
-            "opacity-35 pointer-events-none": isCurrentValuesSavedToStorage
-          }
-        )}>
-        {isCurrentValuesSavedToStorage
-          ? "Selected timezone is already saved"
-          : "Save timezone"}
-      </button>
+      <Button
+        className="mt-2"
+        styleName={"default"}
+        disabled={isSaveOperationDisabled}
+        onClick={handleSaveTz}>
+        {isLimitReached
+          ? "Limit reached"
+          : isCurrentValuesSavedToStorage
+            ? "Selected timezone is already saved"
+            : "Save timezone"}
+      </Button>
     </div>
   )
 }
