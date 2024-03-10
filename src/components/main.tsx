@@ -34,12 +34,12 @@ export default function Main() {
   })
 
   // for (const tz of data || []) {
-  console.log(data)
+  // console.log(data)
   //   // console.log(new Date(tz.datetime).getTimezoneOffset())
   // }
 
   return (
-    <div className="w-[600px] h-[400px] bg-gray-200">
+    <div className="w-[600px] h-[600px] bg-gray-200">
       <div className="p-2">
         <ControlBar tzStorage={tzStorage} saveTz={saveTz} />
         <div className="my-4 flex justify-between items-center">
