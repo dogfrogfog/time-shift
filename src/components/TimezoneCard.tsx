@@ -13,11 +13,11 @@ export default function TimezoneCard({ timezone, utc_offset }) {
           <ArrowDownIcon />
         </Button>
       </div>
-      <div className="space-y-2 grow">
+      <div className="space-y-2 grow overflow-scroll -mr-2 pr-2">
         <p className="font-semibold">
           {timezone} / UTC {utc_offset}
         </p>
-        <div className="w-full rounded flex gap-1 overflow-scroll over">
+        <div className="w-full rounded flex gap-1">
           {[
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
             20, 21, 22, 23, 0
