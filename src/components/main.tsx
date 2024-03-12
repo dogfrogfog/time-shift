@@ -13,6 +13,7 @@ import TimezoneCard from "./TimezoneCard"
 
 export default function Main() {
   const [tzStorage, setTzToStorage] = useStorage("saved-tz")
+  const tzs = tzStorage?.selectedTz.filter(Boolean) || []
 
   const saveTz = async (value: string) => {
     const response = await fetch(
@@ -20,37 +21,44 @@ export default function Main() {
     )
 
     const data = await response.json()
-    const current = tzStorage?.selectedTz || []
 
-    setTzToStorage({ selectedTz: current.concat([data]) })
+    setTzToStorage({ selectedTz: tzs.concat([data]) })
   }
 
-  const selectedTimezones: string[] =
-    tzStorage?.selectedTz?.map((v) => v.timezone) || []
+  const selectedTimezones: string[] = tzs.map((v) => v.timezone)
 
   const { data, status } = useQuery({
     queryKey: ["saved-tz", ...selectedTimezones],
     queryFn: () => fetchSavedTz(selectedTimezones)
   })
 
-  // for (const tz of data || []) {
-  // console.log(data)
-  //   // console.log(new Date(tz.datetime).getTimezoneOffset())
-  // }
+  const moveUp = (index: number) => {
+    const temp = tzs[index]
+    tzs[index] = tzs[index - 1]
+    tzs[index - 1] = temp
+    setTzToStorage({ selectedTz: tzs })
+  }
+
+  const moveDown = (index: number) => {
+    const temp = tzs[index]
+    tzs[index] = tzs[index + 1]
+    tzs[index + 1] = temp
+    setTzToStorage({ selectedTz: tzs })
+  }
 
   return (
     <div className="w-[600px] h-[600px] bg-gray-200">
       <div className="p-2">
-        <ControlBar tzStorage={tzStorage} saveTz={saveTz} />
+        <ControlBar tzs={tzs} saveTz={saveTz} />
         <div className="my-4 flex justify-between items-center">
           <div className="flex gap-2">
-            {/* <p>Saved timezones: {tzStorage?.selectedTz?.length || 0}</p> */}
+            {/* <p>Saved timezones: {tzs.length || 0}</p> */}
             <DatePickerDemo />
           </div>
           <div>
             <Button
               className=""
-              disabled={!tzStorage?.selectedTz?.length}
+              disabled={!tzs.length}
               styleName={"danger"}
               onClick={() => setTzToStorage({ selectedTz: [] })}>
               <TrashIcon /> Delete all
@@ -58,8 +66,20 @@ export default function Main() {
           </div>
         </div>
         <div className="flex flex-col text-md gap-2">
-          {tzStorage?.selectedTz?.map((tz) => (
-            <TimezoneCard key={tz.datetime} {...tz} />
+          {tzs.map((tz, i) => (
+            <TimezoneCard
+              moveUp={() => moveUp(i)}
+              moveDown={() => moveDown(i)}
+              isFirst={i === 0}
+              isLast={i === tzs.length - 1}
+              key={tz.timezone}
+              handleDelete={() => {
+                const newTzs = tzs.filter((_, index) => index !== i)
+
+                setTzToStorage({ selectedTz: newTzs })
+              }}
+              {...tz}
+            />
           ))}
         </div>
       </div>

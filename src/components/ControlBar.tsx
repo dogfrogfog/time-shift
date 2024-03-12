@@ -6,12 +6,10 @@ import {
 } from "@heroicons/react/20/solid"
 import { Fragment, useState, useTransition } from "react"
 
-import { cn } from "~lib/utils"
-
 import groupedTimezones from "../data/timezones.json"
 import { Button } from "./Button"
 
-export default function Example({ saveTz, tzStorage }) {
+export default function Example({ saveTz, tzs }) {
   const [query, setQuery] = useState("")
   const [selected, setSelected] = useState("")
   const [filteredTz, setFilteredTz] = useState([])
@@ -19,8 +17,8 @@ export default function Example({ saveTz, tzStorage }) {
 
   const isLimitReached = false
   // tzStorage?.selectedTz?.length === 5
-  const isCurrentValuesSavedToStorage = tzStorage?.selectedTz
-    ?.map((tz) => tz.timezone)
+  const isCurrentValuesSavedToStorage = tzs
+    .map((tz) => tz.timezone)
     .includes(selected)
 
   const timezonesArray = groupedTimezones.timezones.reduce((acc, group) => {
