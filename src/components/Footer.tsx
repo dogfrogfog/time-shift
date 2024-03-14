@@ -10,9 +10,6 @@ export default function Footer() {
       <Link href="https://x.com/dogfrogfog" target="_blank">
         <TwitterLogoIcon />
       </Link>
-      <Link href="https://github.com/dogfrogfog/time-shift" target="_blank">
-        <GitHubLogoIcon />
-      </Link>
     </div>
   )
 }
