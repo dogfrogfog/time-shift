@@ -1,8 +1,8 @@
 {
-  "name": "time-plasmo",
-  "displayName": "Time plasmo",
+  "name": "time-shift",
+  "displayName": "TimeShift",
   "version": "0.0.1",
-  "description": "TimeShift",
+  "description": "TimeShift - timezone meeting scheduler",
   "author": "Maks <dogofrogfog@proton.me>",
   "scripts": {
     "start": "next start",
