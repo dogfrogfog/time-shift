@@ -9,6 +9,7 @@ import { fetchSavedTz } from "~lib/api"
 import { Button } from "./Button"
 import ControlBar from "./ControlBar"
 import { DatePickerDemo } from "./DatePicker"
+import SelectionArea from "./SelectionArea"
 import TimezoneCard from "./TimezoneCard"
 
 export default function Main() {
@@ -47,7 +48,7 @@ export default function Main() {
   }
 
   return (
-    <div className="w-[600px] h-[600px] bg-gray-200">
+    <div className="bg-gray-200">
       <div className="p-2">
         <ControlBar tzs={tzs} saveTz={saveTz} />
         <div className="my-4 flex justify-between items-center">
@@ -65,7 +66,10 @@ export default function Main() {
             </Button>
           </div>
         </div>
-        <div className="flex flex-col text-md gap-2">
+
+        <SelectionArea id="ytimezone-id" items={Array(24).fill(1)} />
+
+        <div className="flex flex-col text-md gap-2 w-[800px] h-[450px] overflow-y-scroll">
           {tzs.map((tz, i) => (
             <TimezoneCard
               moveUp={() => moveUp(i)}
