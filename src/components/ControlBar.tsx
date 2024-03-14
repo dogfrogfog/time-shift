@@ -9,14 +9,13 @@ import { Fragment, useState, useTransition } from "react"
 import groupedTimezones from "../data/timezones.json"
 import { Button } from "./Button"
 
-export default function Example({ saveTz, tzs }) {
+export default function ControllBar({ saveTz, tzs }) {
   const [query, setQuery] = useState("")
   const [selected, setSelected] = useState("")
   const [filteredTz, setFilteredTz] = useState([])
   const [_, startTransition] = useTransition()
 
-  const isLimitReached = false
-  // tzStorage?.selectedTz?.length === 5
+  const isLimitReached = tzs.length >= 5
   const isCurrentValuesSavedToStorage = tzs
     .map((tz) => tz.timezone)
     .includes(selected)

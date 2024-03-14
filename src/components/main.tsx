@@ -48,7 +48,7 @@ export default function Main() {
   }
 
   return (
-    <div className="bg-gray-200">
+    <div className="bg-gray-200 w-[800px]">
       <div className="p-2">
         <ControlBar tzs={tzs} saveTz={saveTz} />
         <div className="my-4 flex justify-between items-center">
@@ -67,9 +67,9 @@ export default function Main() {
           </div>
         </div>
 
-        <SelectionArea id="ytimezone-id" items={Array(24).fill(1)} />
+        {/* <SelectionArea id="ytimezone-id" items={Array(24).fill(1)} /> */}
 
-        <div className="flex flex-col text-md gap-2 w-[800px] h-[450px] overflow-y-scroll">
+        <div className="flex flex-col text-md gap-2">
           {tzs.map((tz, i) => (
             <TimezoneCard
               moveUp={() => moveUp(i)}

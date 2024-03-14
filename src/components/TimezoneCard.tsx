@@ -6,6 +6,7 @@ import {
 } from "@radix-ui/react-icons"
 
 import { Button } from "./Button"
+import SelectionArea from "./SelectionArea"
 
 export default function TimezoneCard({
   isFirst,
@@ -17,7 +18,9 @@ export default function TimezoneCard({
   handleDelete
 }) {
   return (
-    <div className="flex gap-2 rounded bg-white p-2 relative">
+    <div
+      className="flex gap-4 rounded bg-white p-2 relative pl-4"
+      id={`elements-container-${timezone}`}>
       <div className="flex flex-col gap-2 justify-center items-center">
         {isFirst ? (
           <Button disabled={""} className="" styleName={"ghost"}>
@@ -44,7 +47,7 @@ export default function TimezoneCard({
       </div>
       <Button
         disabled={""}
-        className="absolute top-1 right-1 w-auto p-0.5"
+        className="absolute top-2 right-2 w-auto p-1"
         styleName={"danger"}
         onClick={handleDelete}>
         <TrashIcon />
@@ -54,18 +57,14 @@ export default function TimezoneCard({
         <p className="font-semibold">
           {timezone} / UTC {utc_offset}
         </p>
-        <div className="w-full rounded flex gap-1">
-          {[
+
+        <SelectionArea
+          id={timezone}
+          items={[
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
             20, 21, 22, 23, 0
-          ].map((v) => (
-            <div
-              key={v}
-              className="min-w-[24px] text-center rounded text-xs font-semibold bg-gray-100 p-1">
-              {v}
-            </div>
-          ))}
-        </div>
+          ]}
+        />
       </div>
     </div>
   )

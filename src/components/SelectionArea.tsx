@@ -48,8 +48,9 @@ export default function SelectionArea({
     selectionProps: {
       style: {
         borderRadius: 4,
-        backgroundColor: "green",
-        opacity: 0.5
+        backgroundColor: "yellow",
+        opacity: 0.5,
+        border: "1px solid yellow"
       }
     },
     shouldStartSelecting: (target) => {
@@ -76,17 +77,18 @@ export default function SelectionArea({
   return (
     <div className="relative">
       <DragSelection />
-      <div
-        id={`elements-container-${id}`}
-        className="flex gap-2 border-2 rounded-md border-white px-4 py-8"
-        ref={elementsContainerRef}>
-        {Array.from(items, (_, i) => (
+      <div className="flex gap-1 rounded" ref={elementsContainerRef}>
+        {Array.from(items, (v, i) => (
           <div
             key={i}
-            className={cn("border-2 border-black w-16 h-16", {
-              "bg-yellow-300": selectedIndexes.includes(i)
-            })}
-          />
+            className={cn(
+              "min-w-[24px] text-center rounded text-xs font-semibold bg-gray-100 p-1",
+              {
+                "bg-yellow-300": selectedIndexes.includes(i)
+              }
+            )}>
+            {v}
+          </div>
         ))}
       </div>
     </div>
