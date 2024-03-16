@@ -4,9 +4,12 @@ import {
   HomeIcon,
   TrashIcon
 } from "@radix-ui/react-icons"
+import { useContext } from "react"
 
+import { sortHoursArray } from "../lib/utils"
 import { Button } from "./Button"
 import SelectionArea from "./SelectionArea"
+import { SelectionContext } from "./SelectionContext"
 
 export default function TimezoneCard({
   isFirst,
@@ -17,6 +20,8 @@ export default function TimezoneCard({
   moveDown,
   handleDelete
 }) {
+  const { selectedDate } = useContext(SelectionContext)
+
   return (
     <div
       className="cursor-grab flex gap-4 rounded bg-white p-2 relative pl-4"
@@ -58,13 +63,7 @@ export default function TimezoneCard({
           {timezone} / UTC {utc_offset}
         </p>
 
-        <SelectionArea
-          id={timezone}
-          items={[
-            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-            20, 21, 22, 23, 0
-          ]}
-        />
+        <SelectionArea id={timezone} items={sortHoursArray(selectedDate)} />
       </div>
     </div>
   )
