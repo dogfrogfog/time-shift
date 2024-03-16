@@ -5,12 +5,18 @@ import {
   type SetStateAction
 } from "react"
 
+import { useStorage } from "@plasmohq/storage/hook"
+
 const now = new Date()
 
 export const SelectionContext = createContext({
   selectedIndexes: [] as number[],
   setSelectedIndexes: (() => ({})) as Dispatch<SetStateAction<number[]>>,
   selectedDate: now,
+  setTzToStorage: (() => ({})) as Dispatch<
+    SetStateAction<{ selectedTz: any[] }>
+  >,
+  timezones: [] as any[],
   setSelectedDate: (() => ({})) as Dispatch<SetStateAction<Date>>
 })
 
@@ -18,8 +24,10 @@ export function SelectionContextProvider({ children }) {
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([])
   const [selectedDate, setSelectedDate] = useState<Date>(now)
 
-  console.log("selectedDate, setSelectedDate")
-  console.log(selectedDate, setSelectedDate)
+  const [tzStorage, setTzToStorage] = useStorage("saved-tz")
+  const timezones = tzStorage?.selectedTz.filter(Boolean) || []
+
+  // const baselineTimezone = timezones[0]?.timezone
 
   return (
     <SelectionContext.Provider
@@ -27,7 +35,9 @@ export function SelectionContextProvider({ children }) {
         selectedIndexes,
         setSelectedIndexes,
         selectedDate,
-        setSelectedDate
+        setSelectedDate,
+        setTzToStorage,
+        timezones
       }}>
       {children}
     </SelectionContext.Provider>

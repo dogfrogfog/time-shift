@@ -4,19 +4,32 @@ import {
   ChevronUpDownIcon,
   PlusIcon
 } from "@heroicons/react/20/solid"
-import { Fragment, useState, useTransition } from "react"
+import { Fragment, useContext, useState, useTransition } from "react"
 
 import groupedTimezones from "../data/timezones.json"
 import { Button } from "./Button"
+import { SelectionContext } from "./SelectionContext"
 
-export default function ControllBar({ saveTz, tzs }) {
+export default function ControllBar() {
+  const { setTzToStorage, timezones } = useContext(SelectionContext)
+
+  const saveTz = async (value: string) => {
+    const response = await fetch(
+      `http://worldtimeapi.org/api/timezone/${value}`
+    )
+
+    const data = await response.json()
+
+    setTzToStorage({ selectedTz: timezones.concat([data]) })
+  }
+
   const [query, setQuery] = useState("")
   const [selected, setSelected] = useState("")
   const [filteredTz, setFilteredTz] = useState([])
   const [_, startTransition] = useTransition()
 
-  const isLimitReached = tzs.length >= 5
-  const isCurrentValuesSavedToStorage = tzs
+  const isLimitReached = timezones.length >= 5
+  const isCurrentValuesSavedToStorage = timezones
     .map((tz) => tz.timezone)
     .includes(selected)
 
