@@ -1,16 +1,16 @@
 import { TrashIcon } from "@radix-ui/react-icons"
-import { useQuery } from "@tanstack/react-query"
-import { useState } from "react"
+
+// import { useQuery } from "@tanstack/react-query"
+// import { useState } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
-import { fetchSavedTz } from "~lib/api"
+// import { fetchSavedTz } from "~lib/api"
 
 import { Button } from "./Button"
 import ControlBar from "./ControlBar"
 import { DatePickerDemo } from "./DatePicker"
-import SelectionArea from "./SelectionArea"
-import TimezoneCard from "./TimezoneCard"
+import TimezonesSelection from "./TimezonesSelection"
 
 export default function Main() {
   const [tzStorage, setTzToStorage] = useStorage("saved-tz")
@@ -27,11 +27,10 @@ export default function Main() {
   }
 
   const selectedTimezones: string[] = tzs.map((v) => v.timezone)
-
-  const { data, status } = useQuery({
-    queryKey: ["saved-tz", ...selectedTimezones],
-    queryFn: () => fetchSavedTz(selectedTimezones)
-  })
+  // const { data, status } = useQuery({
+  //   queryKey: ["saved-tz", ...selectedTimezones],
+  //   queryFn: () => fetchSavedTz(selectedTimezones)
+  // })
 
   const moveUp = (index: number) => {
     const temp = tzs[index]
@@ -48,7 +47,7 @@ export default function Main() {
   }
 
   return (
-    <div className="bg-gray-200 w-[800px]">
+    <div className="bg-gray-200 w-[800px] min-h-[450px]">
       <div className="p-2">
         <ControlBar tzs={tzs} saveTz={saveTz} />
         <div className="my-4 flex justify-between items-center">
@@ -67,25 +66,12 @@ export default function Main() {
           </div>
         </div>
 
-        {/* <SelectionArea id="ytimezone-id" items={Array(24).fill(1)} /> */}
-
-        <div className="flex flex-col text-md gap-2">
-          {tzs.map((tz, i) => (
-            <TimezoneCard
-              moveUp={() => moveUp(i)}
-              moveDown={() => moveDown(i)}
-              isFirst={i === 0}
-              isLast={i === tzs.length - 1}
-              key={tz.timezone}
-              handleDelete={() => {
-                const newTzs = tzs.filter((_, index) => index !== i)
-
-                setTzToStorage({ selectedTz: newTzs })
-              }}
-              {...tz}
-            />
-          ))}
-        </div>
+        <TimezonesSelection
+          tzs={tzs}
+          moveUp={moveUp}
+          moveDown={moveDown}
+          setTzToStorage={setTzToStorage}
+        />
       </div>
     </div>
   )

@@ -2,9 +2,11 @@ import {
   boxesIntersect,
   useSelectionContainer
 } from "@air/react-drag-to-select"
-import { useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 
 import { cn } from "~lib/utils"
+
+import { SelectionContext } from "./SelectionContext"
 
 export default function SelectionArea({
   id,
@@ -13,12 +15,11 @@ export default function SelectionArea({
   id: string
   items: any[]
 }) {
-  const [selectionBox, setSelectionBox] = useState<any>()
-  const [selectedIndexes, setSelectedIndexes] = useState<number[]>([])
+  const { selectedIndexes, setSelectedIndexes } = useContext(SelectionContext)
   const selectableItems = useRef<any[]>([])
   const elementsContainerRef = useRef<HTMLDivElement | null>(null)
 
-  console.log()
+  // console.log(selectedIndexes, setSelectedIndexes)
 
   const { DragSelection } = useSelectionContainer({
     eventsElement: document.getElementById(`elements-container-${id}`),
@@ -33,7 +34,6 @@ export default function SelectionArea({
         left: box.left + window.scrollX
       }
 
-      setSelectionBox(scrollAwareBox)
       const indexesToSelect: number[] = []
       selectableItems.current.forEach((item, index) => {
         if (boxesIntersect(scrollAwareBox, item)) {
@@ -41,6 +41,12 @@ export default function SelectionArea({
         }
       })
 
+      console.log("scrollAwareBox")
+      console.log(scrollAwareBox)
+      console.log("indexesToSelect")
+      console.log(indexesToSelect)
+      console.log("selectableItems.current")
+      console.log(selectableItems.current)
       setSelectedIndexes(indexesToSelect)
     },
     onSelectionStart: () => {},
@@ -72,6 +78,8 @@ export default function SelectionArea({
         })
       })
     }
+
+    setSelectedIndexes([])
   }, [])
 
   return (

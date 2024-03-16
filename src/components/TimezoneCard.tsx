@@ -19,7 +19,7 @@ export default function TimezoneCard({
 }) {
   return (
     <div
-      className="flex gap-4 rounded bg-white p-2 relative pl-4"
+      className="cursor-grab flex gap-4 rounded bg-white p-2 relative pl-4"
       id={`elements-container-${timezone}`}>
       <div className="flex flex-col gap-2 justify-center items-center">
         {isFirst ? (
