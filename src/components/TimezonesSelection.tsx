@@ -10,14 +10,14 @@ export default function TimezonesSelection() {
     const temp = timezones[index]
     timezones[index] = timezones[index - 1]
     timezones[index - 1] = temp
-    setTzToStorage({ selectedTz: timezones })
+    setTzToStorage(timezones)
   }
 
   const moveDown = (index: number) => {
     const temp = timezones[index]
     timezones[index] = timezones[index + 1]
     timezones[index + 1] = temp
-    setTzToStorage({ selectedTz: timezones })
+    setTzToStorage(timezones)
   }
   return (
     <div className="flex flex-col text-md gap-2">
@@ -27,13 +27,13 @@ export default function TimezonesSelection() {
           moveDown={() => moveDown(i)}
           isFirst={i === 0}
           isLast={i === timezones.length - 1}
-          key={tz.timezone}
+          timezone={tz}
+          key={tz}
           handleDelete={() => {
             const newTzs = timezones.filter((_, index) => index !== i)
 
-            setTzToStorage({ selectedTz: newTzs })
+            setTzToStorage(newTzs)
           }}
-          {...tz}
         />
       ))}
     </div>

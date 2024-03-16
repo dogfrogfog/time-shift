@@ -20,7 +20,7 @@ export default function ControllBar() {
 
     const data = await response.json()
 
-    setTzToStorage({ selectedTz: timezones.concat([data]) })
+    setTzToStorage(timezones.concat([value]))
   }
 
   const [query, setQuery] = useState("")
@@ -29,9 +29,7 @@ export default function ControllBar() {
   const [_, startTransition] = useTransition()
 
   const isLimitReached = timezones.length >= 5
-  const isCurrentValuesSavedToStorage = timezones
-    .map((tz) => tz.timezone)
-    .includes(selected)
+  const isCurrentValuesSavedToStorage = timezones.includes(selected)
 
   const timezonesArray = groupedTimezones.timezones.reduce((acc, group) => {
     const timezoneWithGroup = group.zones.map((v) => ({

@@ -41,12 +41,6 @@ export default function SelectionArea({
         }
       })
 
-      console.log("scrollAwareBox")
-      console.log(scrollAwareBox)
-      console.log("indexesToSelect")
-      console.log(indexesToSelect)
-      console.log("selectableItems.current")
-      console.log(selectableItems.current)
       setSelectedIndexes(indexesToSelect)
     },
     onSelectionStart: () => {},
@@ -85,14 +79,16 @@ export default function SelectionArea({
   return (
     <div className="relative">
       <DragSelection />
-      <div className="flex gap-1 rounded" ref={elementsContainerRef}>
+      <div className="flex rounded" ref={elementsContainerRef}>
         {Array.from(items, (v, i) => (
           <div
             key={i}
             className={cn(
-              "min-w-[24px] text-center rounded text-xs font-semibold bg-gray-100 p-1",
+              "min-w-[24px] text-center text-xs odd:bg-gray-50 font-semibold bg-gray-100 p-1",
               {
-                "bg-yellow-300": selectedIndexes.includes(i)
+                "bg-yellow-300 odd:bg-yellow-200": selectedIndexes.includes(i),
+                "rounded-tl rounded-bl ml-2": v === 0,
+                "rounded-tr rounded-br mr-2": v === 23
               }
             )}>
             {v}

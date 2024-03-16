@@ -13,10 +13,8 @@ export const SelectionContext = createContext({
   selectedIndexes: [] as number[],
   setSelectedIndexes: (() => ({})) as Dispatch<SetStateAction<number[]>>,
   selectedDate: now,
-  setTzToStorage: (() => ({})) as Dispatch<
-    SetStateAction<{ selectedTz: any[] }>
-  >,
-  timezones: [] as any[],
+  setTzToStorage: (() => ({})) as Dispatch<SetStateAction<string[]>>,
+  timezones: [] as string[],
   setSelectedDate: (() => ({})) as Dispatch<SetStateAction<Date>>
 })
 
@@ -25,9 +23,11 @@ export function SelectionContextProvider({ children }) {
   const [selectedDate, setSelectedDate] = useState<Date>(now)
 
   const [tzStorage, setTzToStorage] = useStorage("saved-tz")
-  const timezones = tzStorage?.selectedTz.filter(Boolean) || []
+  const timezones = tzStorage || []
 
-  // const baselineTimezone = timezones[0]?.timezone
+  // const time = timezones[0]?.timezone
+
+  console.log(timezones)
 
   return (
     <SelectionContext.Provider

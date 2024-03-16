@@ -15,12 +15,14 @@ export default function TimezoneCard({
   isFirst,
   isLast,
   timezone,
-  utc_offset,
   moveUp,
   moveDown,
   handleDelete
 }) {
   const { selectedDate } = useContext(SelectionContext)
+  const timezoneTime = new Date(
+    selectedDate.toLocaleString("en", { timeZone: timezone })
+  )
 
   return (
     <div
@@ -59,11 +61,12 @@ export default function TimezoneCard({
       </Button>
 
       <div className="space-y-2 grow overflow-scroll -mr-2 pr-2">
-        <p className="font-semibold">
-          {timezone} / UTC {utc_offset}
-        </p>
+        <p className="font-semibold">{timezone}</p>
 
-        <SelectionArea id={timezone} items={sortHoursArray(selectedDate)} />
+        <SelectionArea
+          id={timezone}
+          items={sortHoursArray(timezoneTime, isFirst)}
+        />
       </div>
     </div>
   )
