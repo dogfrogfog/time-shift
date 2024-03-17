@@ -3,7 +3,7 @@ import { cn } from "~lib/utils"
 const style = {
   danger: "p-1 bg-red-500 text-white outline-red-300 active:bg-red-600",
   default:
-    "bg-yellow-400 justify-center text-white text-black outline-gray-300 active:bg-gray-100",
+    "bg-white justify-center text-white text-black outline-gray-300 active:bg-gray-100",
   ghost:
     "bg-transparent text-black hover:shadow-none outline-gray-300 active:bg-gray-100 p-0"
 }

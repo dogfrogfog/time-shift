@@ -86,14 +86,14 @@ export default function SelectionArea({
           <div
             key={i}
             className={cn(
-              "min-w-[24px] rounded text-center text-xs flex items-center justify-center odd:bg-gray-50 font-semibold bg-gray-100 p-1",
+              "w-[30px] rounded text-center text-xs flex items-center justify-center odd:bg-gray-50 font-semibold bg-gray-100 p-1",
               {
                 "bg-yellow-300 odd:bg-yellow-200": selectedIndexes.includes(i),
                 "bg-gradient-to-r from-gray-500 to-bg-gray-100": v === 0
                 // "bg-green-200": v === currentHour
               }
             )}>
-            {v === 0 ? zeroCellDate(true) : v}
+            {v === 0 ? zeroCellDate : v}
           </div>
         ))}
       </div>

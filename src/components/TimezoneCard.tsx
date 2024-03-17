@@ -36,13 +36,17 @@ export default function TimezoneCard({
   handleDelete
 }) {
   const { selectedDate } = useContext(SelectionContext)
-  console.log(selectedDate)
 
   const timezoneTime = selectedDate.toLocaleString("en-UK", {
     timeZone: timezone
   })
 
-  console.log(timezoneTime, selectedDate.getDate)
+  const selectedDay = selectedDate.getDate()
+
+  const hoursRegExp = /\b(\d{2}):/
+  const match = timezoneTime.match(hoursRegExp)
+
+  const currentHour = parseInt(match[1])
 
   const dayOfMonthRegExp = /^(\d{2})/
   const match1 = timezoneTime.match(dayOfMonthRegExp)
@@ -50,7 +54,13 @@ export default function TimezoneCard({
   const monthRegExp = /\/(\d{2})\//
   const match2 = timezoneTime.match(monthRegExp)
 
-  const day = parseInt(match1[1]) + 1
+  let day = parseInt(match1[1])
+  // console.log(day, timezoneTime, selectedDay > day)
+  if (selectedDay > day) {
+    day++
+  } else if (selectedDay === day && currentHour !== 0) day++
+  // if (selectedDay > day currentHour > 12) day++
+  // if (selectedDay === day && !isFirst) day++
   const month = parseInt(match2[1])
 
   return (
@@ -94,12 +104,12 @@ export default function TimezoneCard({
 
         <SelectionArea
           id={timezone}
-          zeroCellDate={(isIndex) => (
+          zeroCellDate={
             <div className="flex flex-col text-[10px] leading-[10px]">
-              <span>{isIndex ? day - 1 : day}</span>
+              <span>{day}</span>
               <span>{shortMonthsArray[month]}</span>
             </div>
-          )}
+          }
           items={sortHoursArray(timezoneTime)}
         />
       </div>
