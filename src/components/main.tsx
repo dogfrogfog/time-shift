@@ -15,7 +15,8 @@ import { SelectionContext } from "./SelectionContext"
 import TimezonesSelection from "./TimezonesSelection"
 
 export default function Main() {
-  const { timezones, setTzToStorage } = useContext(SelectionContext)
+  const { timezones, setTzToStorage, selectedIndexes } =
+    useContext(SelectionContext)
 
   // const selectedTimezones: string[] = timezones.map((v) => v.timezone)
   // const { data, status } = useQuery({
@@ -40,18 +41,20 @@ export default function Main() {
           {/* <p>Saved timezones: {tzs.length || 0}</p> */}
           <DatePicker />
 
-          <div className=" space-x-2">
-            <Link
-              href="/"
-              className="bg-white p-2 rounded hover:text-white hover:bg-yellow-400 transition-all">
-              Google Meet
-            </Link>
-            <Link
-              href="/"
-              className="bg-white p-2 rounded hover:bg-[#3e3e78] hover:text-white transition-all">
-              MS Teams
-            </Link>
-          </div>
+          {selectedIndexes.length > 0 && (
+            <div className=" space-x-2">
+              <Link
+                href="/"
+                className="bg-white p-2 rounded hover:text-white hover:bg-yellow-400 transition-all">
+                Google Meet
+              </Link>
+              <Link
+                href="/"
+                className="bg-white p-2 rounded hover:bg-[#3e3e78] hover:text-white transition-all">
+                MS Teams
+              </Link>
+            </div>
+          )}
           {/* </div> */}
           {/* <div>
             <Button
