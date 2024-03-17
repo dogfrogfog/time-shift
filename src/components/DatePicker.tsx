@@ -22,7 +22,11 @@ export function DatePicker() {
           )}>
           <CalendarIcon className="mr-2 h-4 w-4" />
           {selectedDate ? (
-            `${selectedDate.toLocaleString()}`
+            `${selectedDate.toLocaleDateString("en", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric"
+            })}`
           ) : (
             <span>Pick a date</span>
           )}
