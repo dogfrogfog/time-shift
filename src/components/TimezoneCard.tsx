@@ -21,7 +21,7 @@ export default function TimezoneCard({
 }) {
   const { selectedDate } = useContext(SelectionContext)
   const timezoneTime = new Date(
-    selectedDate.toLocaleString("en", { timeZone: timezone })
+    selectedDate.toLocaleString("en-UK", { timeZone: timezone })
   )
 
   return (

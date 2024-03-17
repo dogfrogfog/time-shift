@@ -15,7 +15,8 @@ export default function SelectionArea({
   id: string
   items: any[]
 }) {
-  const { selectedIndexes, setSelectedIndexes } = useContext(SelectionContext)
+  const { selectedIndexes, setSelectedIndexes, currentHour } =
+    useContext(SelectionContext)
   const selectableItems = useRef<any[]>([])
   const elementsContainerRef = useRef<HTMLDivElement | null>(null)
 
@@ -87,7 +88,8 @@ export default function SelectionArea({
               "min-w-[24px] rounded text-center text-xs odd:bg-gray-50 font-semibold bg-gray-100 p-1",
               {
                 "bg-yellow-300 odd:bg-yellow-200": selectedIndexes.includes(i),
-                "bg-red-200": v === 0
+                "bg-gradient-to-r from-gray-500 to-bg-gray-100": v === 0,
+                "bg-green-200": v === currentHour
               }
             )}>
             {v}

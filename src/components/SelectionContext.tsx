@@ -16,7 +16,8 @@ export const SelectionContext = createContext({
   setTzToStorage: (() => ({})) as Dispatch<SetStateAction<string[]>>,
   timezones: [] as string[],
   setSelectedDate: (() => ({})) as Dispatch<SetStateAction<Date>>,
-  baselineTime: ""
+  baselineTime: "",
+  currentHour: now.getHours()
 })
 
 export function SelectionContextProvider({ children }) {
@@ -39,7 +40,8 @@ export function SelectionContextProvider({ children }) {
         setSelectedDate,
         setTzToStorage,
         timezones,
-        baselineTime
+        baselineTime,
+        currentHour: now.getHours()
       }}>
       {children}
     </SelectionContext.Provider>
