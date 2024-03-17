@@ -37,7 +37,7 @@ export default function Main() {
               className=""
               disabled={!timezones.length}
               styleName={"danger"}
-              onClick={() => setTzToStorage({ selectedTz: [] })}>
+              onClick={() => setTzToStorage([])}>
               <TrashIcon /> Delete all
             </Button>
           </div>

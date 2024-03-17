@@ -15,7 +15,8 @@ export const SelectionContext = createContext({
   selectedDate: now,
   setTzToStorage: (() => ({})) as Dispatch<SetStateAction<string[]>>,
   timezones: [] as string[],
-  setSelectedDate: (() => ({})) as Dispatch<SetStateAction<Date>>
+  setSelectedDate: (() => ({})) as Dispatch<SetStateAction<Date>>,
+  baselineTime: ""
 })
 
 export function SelectionContextProvider({ children }) {
@@ -25,9 +26,9 @@ export function SelectionContextProvider({ children }) {
   const [tzStorage, setTzToStorage] = useStorage("saved-tz")
   const timezones = tzStorage || []
 
-  // const time = timezones[0]?.timezone
-
-  console.log(timezones)
+  const baselineTime = selectedDate.toLocaleString("en-UK", {
+    timeZone: timezones[0]
+  })
 
   return (
     <SelectionContext.Provider
@@ -37,7 +38,8 @@ export function SelectionContextProvider({ children }) {
         selectedDate,
         setSelectedDate,
         setTzToStorage,
-        timezones
+        timezones,
+        baselineTime
       }}>
       {children}
     </SelectionContext.Provider>
