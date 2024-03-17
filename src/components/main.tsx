@@ -27,12 +27,12 @@ export default function Main() {
     <div className="bg-gray-200 w-[800px] min-h-[450px]">
       <div className="p-2">
         <ControlBar />
-        <div className="my-4 flex justify-between items-center">
-          <div className="flex gap-2">
-            {/* <p>Saved timezones: {tzs.length || 0}</p> */}
-            <DatePicker />
-          </div>
-          <div>
+        <div className="my-2 flex justify-between items-center">
+          {/* <div className="flex gap-2"> */}
+          {/* <p>Saved timezones: {tzs.length || 0}</p> */}
+          <DatePicker />
+          {/* </div> */}
+          {/* <div>
             <Button
               className=""
               disabled={!timezones.length}
@@ -40,7 +40,7 @@ export default function Main() {
               onClick={() => setTzToStorage([])}>
               <TrashIcon /> Delete all
             </Button>
-          </div>
+          </div> */}
         </div>
 
         <TimezonesSelection />

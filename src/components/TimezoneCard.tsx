@@ -11,6 +11,22 @@ import { Button } from "./Button"
 import SelectionArea from "./SelectionArea"
 import { SelectionContext } from "./SelectionContext"
 
+const shortMonthsArray = [
+  "", // Placeholder for index 0
+  "Jan", // Month 1
+  "Feb", // Month 2
+  "Mar", // Month 3
+  "Apr", // Month 4
+  "May", // Month 5
+  "Jun", // Month 6
+  "Jul", // Month 7
+  "Aug", // Month 8
+  "Sep", // Month 9
+  "Oct", // Month 10
+  "Nov", // Month 11
+  "Dec" // Month 12
+]
+
 export default function TimezoneCard({
   isFirst,
   isLast,
@@ -20,9 +36,22 @@ export default function TimezoneCard({
   handleDelete
 }) {
   const { selectedDate } = useContext(SelectionContext)
-  const timezoneTime = new Date(
-    selectedDate.toLocaleString("en-UK", { timeZone: timezone })
-  )
+  console.log(selectedDate)
+
+  const timezoneTime = selectedDate.toLocaleString("en-UK", {
+    timeZone: timezone
+  })
+
+  console.log(timezoneTime, selectedDate.getDate)
+
+  const dayOfMonthRegExp = /^(\d{2})/
+  const match1 = timezoneTime.match(dayOfMonthRegExp)
+
+  const monthRegExp = /\/(\d{2})\//
+  const match2 = timezoneTime.match(monthRegExp)
+
+  const day = parseInt(match1[1]) + 1
+  const month = parseInt(match2[1])
 
   return (
     <div
@@ -65,7 +94,13 @@ export default function TimezoneCard({
 
         <SelectionArea
           id={timezone}
-          items={sortHoursArray(timezoneTime, isFirst)}
+          zeroCellDate={(isIndex) => (
+            <div className="flex flex-col text-[10px] leading-[10px]">
+              <span>{isIndex ? day - 1 : day}</span>
+              <span>{shortMonthsArray[month]}</span>
+            </div>
+          )}
+          items={sortHoursArray(timezoneTime)}
         />
       </div>
     </div>

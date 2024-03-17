@@ -7,29 +7,33 @@ import {
 
 import { useStorage } from "@plasmohq/storage/hook"
 
-const now = new Date()
-
 export const SelectionContext = createContext({
   selectedIndexes: [] as number[],
   setSelectedIndexes: (() => ({})) as Dispatch<SetStateAction<number[]>>,
-  selectedDate: now,
+  selectedDate: null as any,
   setTzToStorage: (() => ({})) as Dispatch<SetStateAction<string[]>>,
   timezones: [] as string[],
-  setSelectedDate: (() => ({})) as Dispatch<SetStateAction<Date>>,
-  baselineTime: "",
-  currentHour: now.getHours()
+  setSelectedDate: (() => ({})) as Dispatch<SetStateAction<Date>>
 })
 
-export function SelectionContextProvider({ children }) {
-  const [selectedIndexes, setSelectedIndexes] = useState<number[]>([])
-  const [selectedDate, setSelectedDate] = useState<Date>(now)
+function createDateWithTimezone() {}
 
+export function SelectionContextProvider({ children }) {
   const [tzStorage, setTzToStorage] = useStorage("saved-tz")
   const timezones = tzStorage || []
 
-  const baselineTime = selectedDate.toLocaleString("en-UK", {
-    timeZone: timezones[0]
-  })
+  const now = new Date() // new date but for main timezone
+  now.setHours(0, 0, 0)
+
+  const [selectedIndexes, setSelectedIndexes] = useState<number[]>([])
+  const [selectedDate, setSelectedDate] = useState<Date>(now)
+
+  // take main timezone into account
+  const handleSelectedDateChange = (date: Date) => {
+    setSelectedDate(date)
+
+    // const
+  }
 
   return (
     <SelectionContext.Provider
@@ -37,11 +41,9 @@ export function SelectionContextProvider({ children }) {
         selectedIndexes,
         setSelectedIndexes,
         selectedDate,
-        setSelectedDate,
+        setSelectedDate: handleSelectedDateChange,
         setTzToStorage,
-        timezones,
-        baselineTime,
-        currentHour: now.getHours()
+        timezones
       }}>
       {children}
     </SelectionContext.Provider>

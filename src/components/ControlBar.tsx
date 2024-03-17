@@ -68,75 +68,81 @@ export default function ControllBar() {
   const correctTz = query === "" ? timezonesArray : filteredTz
 
   return (
-    <div className="w-full">
-      <Combobox value={selected} onChange={setSelected}>
-        <div className="relative mt-2">
-          <div className="relative w-full cursor-default">
-            <Combobox.Input
-              placeholder="Search by city or timezone name..."
-              className="rounded w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:outline outline-gray-300 outline-2"
-              onChange={handleChange}
-            />
-            <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-              <ChevronUpDownIcon
-                className="h-5 w-5 text-gray-400"
-                aria-hidden="true"
+    <div className="w-full mt-2 flex gap-2">
+      <div className="grow">
+        <Combobox value={selected} onChange={setSelected}>
+          <div className="relative">
+            <div className="relative w-full cursor-default">
+              <Combobox.Input
+                placeholder="Search by timezone name..."
+                className="rounded w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:outline outline-gray-300 outline-2"
+                onChange={handleChange}
               />
-            </Combobox.Button>
-          </div>
-          <Transition
-            as={Fragment}
-            leave="transition ease-in duration-100"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-            afterLeave={() => setQuery("")}>
-            <Combobox.Options className="z-10 box-shadow absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
-              {filteredTz.length === 0 && query !== "" ? (
-                <div className="relative cursor-default select-none px-4 py-2 text-gray-700">
-                  Nothing found.
-                </div>
-              ) : (
-                correctTz.map((tz) => (
-                  <Combobox.Option
-                    key={tz.value + tz.name + tz.group}
-                    className={({ active }) =>
-                      `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                        active ? "bg-gray-200" : ""
-                      }`
-                    }
-                    value={tz.value}>
-                    {({ selected }) => (
-                      <>
-                        <span
-                          className={`block truncate ${
-                            selected ? "font-medium" : "font-normal"
-                          }`}>
-                          {tz.name} - {tz.group}
-                        </span>
-                        {selected ? (
+              <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+                <ChevronUpDownIcon
+                  className="h-5 w-5 text-gray-400"
+                  aria-hidden="true"
+                />
+              </Combobox.Button>
+            </div>
+            <Transition
+              as={Fragment}
+              leave="transition ease-in duration-100"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+              afterLeave={() => setQuery("")}>
+              <Combobox.Options className="z-10 box-shadow absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                {filteredTz.length === 0 && query !== "" ? (
+                  <div className="relative cursor-default select-none px-4 py-2 text-gray-700">
+                    Nothing found.
+                  </div>
+                ) : (
+                  correctTz.map((tz) => (
+                    <Combobox.Option
+                      key={tz.value + tz.name + tz.group}
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                          active ? "bg-gray-200" : ""
+                        }`
+                      }
+                      value={tz.value}>
+                      {({ selected }) => (
+                        <>
                           <span
-                            className={`absolute inset-y-0 left-0 flex items-center pl-3`}>
-                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                            className={`block truncate ${
+                              selected ? "font-medium" : "font-normal"
+                            }`}>
+                            {tz.name} - {tz.group}
                           </span>
-                        ) : null}
-                      </>
-                    )}
-                  </Combobox.Option>
-                ))
-              )}
-            </Combobox.Options>
-          </Transition>
-        </div>
-      </Combobox>
+                          {selected ? (
+                            <span
+                              className={`absolute inset-y-0 left-0 flex items-center pl-3`}>
+                              <CheckIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                              />
+                            </span>
+                          ) : null}
+                        </>
+                      )}
+                    </Combobox.Option>
+                  ))
+                )}
+              </Combobox.Options>
+            </Transition>
+          </div>
+        </Combobox>
+      </div>
+
       <Button
-        className="mt-2"
+        className="w-32 text-center"
         styleName={"default"}
         disabled={isSaveOperationDisabled}
         onClick={handleSaveTz}>
         {isLimitReached
           ? "Limit reached"
           : isCurrentValuesSavedToStorage
-            ? "Selected timezone is already saved"
+            ? "Already saved"
             : "Save timezone"}
       </Button>
     </div>
