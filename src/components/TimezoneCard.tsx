@@ -30,16 +30,20 @@ const shortMonthsArray = [
 export default function TimezoneCard({
   isFirst,
   isLast,
-  timezone,
+  timezone = "default",
   moveUp,
   moveDown,
-  handleDelete
+  handleDelete,
+  selfTime
 }) {
   const { selectedDate } = useContext(SelectionContext)
 
-  const timezoneTime = selectedDate.toLocaleString("en-UK", {
-    timeZone: timezone
-  })
+  let timezoneTime = selfTime || ""
+  if (timezone !== "default") {
+    timezoneTime = selectedDate.toLocaleString("en-UK", {
+      timeZone: timezone
+    })
+  }
 
   const selectedDay = selectedDate.getDate()
 
@@ -65,53 +69,58 @@ export default function TimezoneCard({
 
   return (
     <div
-      className="cursor-grab flex gap-4 rounded bg-white p-2 relative pl-4"
+      className="flex gap-4 rounded bg-white p-2 relative pl-4"
       id={`elements-container-${timezone}`}>
       <div className="flex flex-col gap-2 justify-center items-center">
-        {isFirst ? (
-          <Button disabled={""} className="" styleName={"ghost"}>
-            <HomeIcon className="" />
-          </Button>
-        ) : (
-          <>
-            <Button
-              disabled={""}
-              className=""
-              styleName={"ghost"}
-              onClick={moveUp}>
-              <ArrowUpIcon />
-            </Button>
-            <Button
-              className=""
-              disabled={isLast}
-              styleName={"ghost"}
-              onClick={moveDown}>
-              <ArrowDownIcon />
-            </Button>
-          </>
-        )}
+        <div className="w-4">
+          {isFirst === undefined && isLast === undefined ? (
+            <HomeIcon />
+          ) : (
+            <>
+              <Button
+                disabled={isFirst}
+                className=""
+                styleName={"ghost"}
+                onClick={moveUp}>
+                <ArrowUpIcon />
+              </Button>
+              <Button
+                className=""
+                disabled={isLast}
+                styleName={"ghost"}
+                onClick={moveDown}>
+                <ArrowDownIcon />
+              </Button>
+            </>
+          )}
+        </div>
       </div>
-      <Button
-        disabled={""}
-        className="absolute top-2 right-2 w-auto p-1"
-        styleName={"danger"}
-        onClick={handleDelete}>
-        <TrashIcon />
-      </Button>
+      {isFirst !== undefined && isLast !== undefined && (
+        <Button
+          disabled={""}
+          className="absolute top-2 right-2 w-auto p-1"
+          styleName={"danger"}
+          onClick={handleDelete}>
+          <TrashIcon />
+        </Button>
+      )}
 
       <div className="space-y-2 grow overflow-scroll -mr-2 pr-2">
-        <p className="font-semibold">{timezone}</p>
-
-        <SelectionArea
-          id={timezone}
-          zeroCellDate={
-            <div className="flex flex-col text-[10px] leading-[10px]">
-              <span>{day}</span>
-              <span>{shortMonthsArray[month]}</span>
-            </div>
-          }
-          items={sortHoursArray(timezoneTime)}
-        />
+        <p className="font-semibold">
+          {timezone === "default" ? "local time" : timezone}
+        </p>
+        <div className="cursor-grab">
+          <SelectionArea
+            id={timezone}
+            zeroCellDate={
+              <div className="flex flex-col text-[10px] leading-[10px]">
+                <span>{day}</span>
+                <span>{shortMonthsArray[month]}</span>
+              </div>
+            }
+            items={sortHoursArray(timezoneTime).sortedHours}
+          />
+        </div>
       </div>
     </div>
   )

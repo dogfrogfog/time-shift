@@ -25,6 +25,7 @@ export default function TimezonesSelection() {
   return (
     <div className="flex flex-col text-md gap-2">
       {timezones.map((tz, i) => (
+        // @ts-ignore
         <TimezoneCard
           moveUp={() => moveUp(i)}
           moveDown={() => moveDown(i)}
