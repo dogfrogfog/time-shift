@@ -13,7 +13,8 @@ export const SelectionContext = createContext({
   selectedDate: null as any,
   setTzToStorage: (() => ({})) as Dispatch<SetStateAction<string[]>>,
   timezones: [] as string[],
-  setSelectedDate: (() => ({})) as Dispatch<SetStateAction<Date>>
+  setSelectedDate: (() => ({})) as Dispatch<SetStateAction<Date>>,
+  activeHourIndex: 0
 })
 
 function createDateWithTimezone() {}
@@ -23,6 +24,7 @@ export function SelectionContextProvider({ children }) {
   const timezones = tzStorage || []
 
   const now = new Date() // new date but for main timezone
+  const activeHourIndex = now.getHours()
   now.setHours(0, 0, 0)
 
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([])
@@ -43,7 +45,8 @@ export function SelectionContextProvider({ children }) {
         selectedDate,
         setSelectedDate: handleSelectedDateChange,
         setTzToStorage,
-        timezones
+        timezones,
+        activeHourIndex
       }}>
       {children}
     </SelectionContext.Provider>

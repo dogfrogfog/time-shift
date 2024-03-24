@@ -17,7 +17,8 @@ export default function SelectionArea({
   items: any[]
   zeroCellDate: any
 }) {
-  const { selectedIndexes, setSelectedIndexes } = useContext(SelectionContext)
+  const { selectedIndexes, setSelectedIndexes, activeHourIndex } =
+    useContext(SelectionContext)
   const selectableItems = useRef<any[]>([])
   const elementsContainerRef = useRef<HTMLDivElement | null>(null)
 
@@ -89,7 +90,10 @@ export default function SelectionArea({
               "w-[30px] rounded text-center text-xs flex items-center justify-center odd:bg-gray-50 font-semibold bg-gray-100 p-1",
               {
                 "bg-yellow-300 odd:bg-yellow-200": selectedIndexes.includes(i),
-                "bg-gradient-to-r from-gray-500 to-bg-gray-100": v === 0
+                "bg-gradient-to-r from-gray-500 to-bg-gray-100": v === 0,
+                "!bg-green-300": activeHourIndex === i,
+                "!bg-lime-400":
+                  activeHourIndex === i && selectedIndexes.includes(i)
                 // "bg-green-200": v === currentHour
               }
             )}>
