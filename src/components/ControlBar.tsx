@@ -74,7 +74,7 @@ export default function ControllBar() {
           <div className="relative">
             <div className="relative w-full cursor-default">
               <Combobox.Input
-                placeholder="Search by timezone name..."
+                placeholder="Search by timezone..."
                 className="rounded w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:outline outline-gray-300 outline-2"
                 onChange={handleChange}
               />

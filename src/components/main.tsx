@@ -21,7 +21,7 @@ export default function Main() {
   const googleMeetParams = new URLSearchParams({
     text: "New meeting",
     details:
-      "Please, leave a 3 clicks feedback when you finish your thing. https://feedback something",
+      "Please, leave a 3 clicks feedback when you finish your thing. https://feedback.something",
     dates: `${convertToRFC5545Date(meetingStartDate)}/${convertToRFC5545Date(meetingEndDate)}`,
     ctz: Intl.DateTimeFormat().resolvedOptions().timeZone
   }).toString()
