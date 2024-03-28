@@ -69,7 +69,7 @@ export default function TimezoneCard({
 
   return (
     <div
-      className="flex gap-4 rounded bg-white p-2 relative pl-4"
+      className="flex gap-2 rounded bg-white p-1 relative pl-2"
       id={`elements-container-${timezone}`}>
       <div className="flex flex-col gap-2 justify-center items-center">
         <div className="w-4">
@@ -98,7 +98,7 @@ export default function TimezoneCard({
       {isFirst !== undefined && isLast !== undefined && (
         <Button
           disabled={""}
-          className="absolute top-2 right-2 w-auto p-1"
+          className="absolute top-2 right-2 w-auto"
           styleName={"danger"}
           onClick={handleDelete}>
           <TrashIcon />

@@ -1,7 +1,8 @@
 import { cn } from "~lib/utils"
 
 const style = {
-  danger: "p-1 bg-red-500 text-white outline-red-300 active:bg-red-600",
+  danger:
+    "p-0 text-red-500 outline-red-300 active:bg-red-600 hover:shadow-none",
   default:
     "bg-white justify-center text-white text-black outline-gray-300 active:bg-gray-100",
   ghost:

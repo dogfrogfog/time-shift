@@ -1,8 +1,8 @@
 {
   "name": "time-shift",
-  "displayName": "TimeShift",
+  "displayName": "TimeShift: Time Zones Made Simple for Meetings",
   "version": "0.0.1",
-  "description": "TimeShift - timezone meeting scheduler",
+  "description": "TimeShift: Effortless time zone conversion, intuitive interface, single-click meeting scheduling, seamless browser integration. Accessible, secure, and private.TimeShift effortlessly manages time zones, schedules meetings with a click, and integrates seamlessly into your browser. It's accessible, secure, and private. Perfect for managers, developers, entrepreneurs. Forever free.",
   "author": "Maks <dogofrogfog@proton.me>",
   "scripts": {
     "start": "next start",
