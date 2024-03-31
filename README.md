@@ -1,4 +1,5 @@
-This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
+[![Watch the video](https://github.com/dogfrogfog/time-shift/assets/47758224/a9aa403b-2a9a-4c44-a6f2-f10d95a1112c)](https://www.youtube.com/watch?v=nhYut7Mogks)
+
 
 ## Getting Started
 
