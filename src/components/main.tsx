@@ -32,24 +32,14 @@ export default function Main() {
     <div className="bg-gray-200 w-[800px] min-h-[450px]">
       <div className="p-2">
         <ControlBar />
-        <div className="my-2 flex justify-between items-center">
+        <div className="my-2 flex justify-end gap-2 items-center">
+          <Link
+            href={googleCalendarUrl}
+            className="cursor-pointer bg-white p-2 rounded hover:bg-yellow-400 transition-all"
+            target="_blank">
+            Schedule in Google Calendar
+          </Link>
           <DatePicker />
-
-          {selectedIndexes.length > 0 && (
-            <div className="cursor-pointer space-x-2">
-              <Link
-                href={googleCalendarUrl}
-                className="bg-white p-2 rounded hover:bg-yellow-400 transition-all"
-                target="_blank">
-                Schedule in Google Calendar
-              </Link>
-              {/* <Link
-                href="/"
-                className="bg-white p-2 rounded hover:bg-[#3e3e78] hover:text-white transition-all">
-                MS Teams
-              </Link> */}
-            </div>
-          )}
         </div>
 
         <div className="mb-2">

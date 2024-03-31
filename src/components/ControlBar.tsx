@@ -57,6 +57,7 @@ export default function ControllBar() {
     if (!isSaveOperationDisabled) {
       saveTz(selected)
       setQuery("")
+      setSelected("")
     }
   }
 
@@ -130,7 +131,7 @@ export default function ControllBar() {
       </div>
 
       <Button
-        className="w-32 text-center"
+        className="w-40 text-center"
         styleName={"default"}
         disabled={isSaveOperationDisabled}
         onClick={handleSaveTz}>
