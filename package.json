@@ -2,7 +2,7 @@
   "name": "time-shift",
   "displayName": "Time⚡️Shift: Time Zones Made Simple for Meetings",
   "version": "0.0.1",
-  "description": "Time⚡️Shift: Effortless time zone conversion, intuitive interface, single-click meeting scheduling, seamless browser integration. Accessible, secure, and private.TimeShift effortlessly manages time zones, schedules meetings with a click, and integrates seamlessly into your browser. It's accessible, secure, and private. Perfect for managers, developers, entrepreneurs. Forever free.",
+  "description": "Time⚡️Shift: Effortless time zone conversion, intuitive interface, single-click meeting scheduling, seamless browser integration. Accessible, secure, and private. Time⚡️Shift effortlessly manages time zones, schedules meetings with a click, and integrates seamlessly into your browser. It's accessible, secure, and private. Perfect for managers, developers, entrepreneurs. Forever free.",
   "author": "Maks <dogofrogfog@proton.me>",
   "scripts": {
     "start": "next start",
