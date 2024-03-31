@@ -14,12 +14,6 @@ export default function ControllBar() {
   const { setTzToStorage, timezones } = useContext(SelectionContext)
 
   const saveTz = async (value: string) => {
-    const response = await fetch(
-      `http://worldtimeapi.org/api/timezone/${value}`
-    )
-
-    const data = await response.json()
-
     setTzToStorage(timezones.concat([value]))
   }
 
@@ -62,6 +56,7 @@ export default function ControllBar() {
   const handleSaveTz = () => {
     if (!isSaveOperationDisabled) {
       saveTz(selected)
+      setQuery("")
     }
   }
 
@@ -139,11 +134,15 @@ export default function ControllBar() {
         styleName={"default"}
         disabled={isSaveOperationDisabled}
         onClick={handleSaveTz}>
-        {isLimitReached
-          ? "Limit reached"
-          : isCurrentValuesSavedToStorage
-            ? "Already saved"
-            : "Save timezone"}
+        {isLimitReached ? (
+          "Limit reached"
+        ) : isCurrentValuesSavedToStorage ? (
+          "Already saved"
+        ) : (
+          <>
+            <PlusIcon className="h-5 w-5" /> Save timezone
+          </>
+        )}
       </Button>
     </div>
   )

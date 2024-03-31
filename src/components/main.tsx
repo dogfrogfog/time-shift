@@ -26,7 +26,7 @@ export default function Main() {
     ctz: Intl.DateTimeFormat().resolvedOptions().timeZone
   }).toString()
 
-  const googleMeetUrl = `https://calendar.google.com/calendar/u/0/r/eventedit?${googleMeetParams}`
+  const googleCalendarUrl = `https://calendar.google.com/calendar/u/0/r/eventedit?${googleMeetParams}`
 
   return (
     <div className="bg-gray-200 w-[800px] min-h-[450px]">
@@ -36,12 +36,12 @@ export default function Main() {
           <DatePicker />
 
           {selectedIndexes.length > 0 && (
-            <div className=" space-x-2">
+            <div className="cursor-pointer space-x-2">
               <Link
-                href={googleMeetUrl}
-                className="bg-white p-2 rounded hover:text-white hover:bg-yellow-400 transition-all"
+                href={googleCalendarUrl}
+                className="bg-white p-2 rounded hover:bg-yellow-400 transition-all"
                 target="_blank">
-                Google Meet
+                Schedule in Google Calendar
               </Link>
               {/* <Link
                 href="/"
