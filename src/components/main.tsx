@@ -33,12 +33,14 @@ export default function Main() {
       <div className="p-2">
         <ControlBar />
         <div className="my-2 flex justify-end gap-2 items-center">
-          <Link
-            href={googleCalendarUrl}
-            className="cursor-pointer bg-white p-2 rounded hover:bg-yellow-400 transition-all"
-            target="_blank">
-            Schedule in Google Calendar
-          </Link>
+          {selectedIndexes.length > 0 && (
+            <Link
+              href={googleCalendarUrl}
+              className="cursor-pointer bg-white p-2 rounded hover:bg-yellow-400 transition-all"
+              target="_blank">
+              Schedule in Google Calendar
+            </Link>
+          )}
           <DatePicker />
         </div>
 
