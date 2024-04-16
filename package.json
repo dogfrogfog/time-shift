@@ -4,6 +4,7 @@
   "version": "0.0.4",
   "description": "Time⚡️Shift: Effortless time zone conversion and meetings scheduling",
   "author": "Maks <dogofrogfog@proton.me>",
+  "license": "MIT",
   "scripts": {
     "start": "next start",
     "dev": "run-p dev:*",
