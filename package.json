@@ -1,7 +1,7 @@
 {
   "name": "time-shift",
-  "displayName": "Time⚡️Shift: Time Zones Made Simple for Meetings",
-  "version": "0.0.1",
+  "displayName": "Time⚡️Shift: Time Zones for Meetings",
+  "version": "0.0.4",
   "description": "Time⚡️Shift: Effortless time zone conversion and meetings scheduling",
   "author": "Maks <dogofrogfog@proton.me>",
   "scripts": {
@@ -50,11 +50,13 @@
     "typescript": "5.3.3"
   },
   "manifest": {
-    "host_permissions": [
-      "https://*/*"
-    ],
     "permissions": [
       "storage"
-    ]
+    ],
+    "browser_specific_settings": {
+      "gecko": {
+        "id": "timeshift.gondola258@passinbox.com"
+      }
+    }
   }
 }
