@@ -2,6 +2,6 @@
 
 DEMO - [https://www.youtube.com/watch?v=nhYut7Mogks](www.youtube.com/watch?v=nhYut7Mogks)
 
-Chrome - [https://chromewebstore.google.com/detail/time%E2%9A%A1%EF%B8%8Fshift-time-zones-ma/ooaolokpmaegijiojfepfiojnihnppih]
+Chrome - https://chromewebstore.google.com/detail/time%E2%9A%A1%EF%B8%8Fshift-time-zones-ma/ooaolokpmaegijiojfepfiojnihnppih
 
-Mozilla - [https://addons.mozilla.org/en-US/firefox/addon/time-shift/]
+Mozilla - https://addons.mozilla.org/en-US/firefox/addon/time-shift/
